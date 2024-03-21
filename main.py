@@ -8,10 +8,10 @@ from youtube_search import YoutubeSearch
 import webbrowser
 import os
 
-#IDEA: GET CHANNEL MESSAGES FROM COPICOLA CHANNEL TO SEND RANDOM INDEX COPICOLA: 
-#COPICOLA.FROMCHANNELCOPICOLA[RANDINT]
+#IDEA: GET CHANNEL MESSAGES FROM COPIPASTE CHANNEL TO SEND RANDOM INDEX COPIPASTE: 
+#COPIPASTE.FROMCHANNELCOPIPASTE[RANDINT]
 
-description = 'FODASE'
+description = 'bot'
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -58,18 +58,18 @@ async def on_message(message):
 
     #still passive of errors from file names
     if message.content.startswith("!download"):
-        umcu = message.content
-        umcu = umcu.split(' ', 1)
-        yt = YouTube(umcu[1])
+        helper = message.content
+        helper = helper.split(' ', 1)
+        yt = YouTube(helper[1])
         ytfile = yt.streams.filter(file_extension="mp4").get_by_resolution("360p").download("./")
         await message.channel.send(file=discord.File(ytfile))
         os.remove(ytfile)
 
     #passive of errors with files sizes
     if message.content.startswith("!video"):
-        umcu = message.content
-        umcu = umcu.split(' ', 1)
-        name = await asyncio.wait_for(video_search(umcu[1]), timeout = None)
+        helper = message.content
+        helper = helper.split(' ', 1)
+        name = await asyncio.wait_for(video_search(helper[1]), timeout = None)
         await message.channel.send(file=discord.File(name))
         os.remove(name)
 
